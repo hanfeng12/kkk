@@ -105,20 +105,27 @@ public class Helper {
         }
     }
 
-    public static HashMap<String, Integer> getCart(String FileName) {
-        File cartFile = new File(FileName);
-        HashMap<String, Integer> Cart = new HashMap<>();
-        try{
-            Scanner fileReader = new Scanner(cartFile);
-            while(fileReader.hasNextLine()) {
-                String[] cart = fileReader.nextLine().split(",");
-                Cart.put(cart[0], Integer.valueOf(cart[1]));
+    public static HashMap<String, Integer> getCart(String fileName) {
+        File cartFile = new File(fileName);
+        HashMap<String, Integer> cart = new HashMap<>();
+        try (Scanner fileReader = new Scanner(cartFile)) {
+            while (fileReader.hasNextLine()) {
+                String line = fileReader.nextLine();
+                String[] parts = line.split(",");
+                if (parts.length < 2) {
+                    System.out.println("Skipping invalid line: " + line);
+                    continue;
+                }
+                try {
+                    cart.put(parts[0].trim(), Integer.parseInt(parts[1].trim()));
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number format in line: " + line);
+                }
             }
-            return Cart;
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return Cart;
+        return cart;
     }
 
     public static String displayHistory(List<History> histories) {

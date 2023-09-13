@@ -1,5 +1,7 @@
 package lab26.Shubhi.Group04.A1;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +46,7 @@ public class App {
 
         while (true) {
             String command = "What option do you like? (Enter the number)";
-            String warning = "Please enter a Integer between 0 and 3";
+            String warning = "Please enter a Integer between 0 and 4";
             String prefix_User = "[User]: ";
             System.out.println(command);
             System.out.println("0: quit");
@@ -58,14 +60,14 @@ public class App {
 
             userInput = scanner.nextInt();
 
-            while (userInput < 0 || userInput > 3) {
+            while (userInput < 0 || userInput > 4) {
                 while (!scanner.hasNextInt()) {
                     System.out.println(warning);
                     scanner.nextLine();
                 }
                 userInput = scanner.nextInt();
 
-                if (userInput < 0 || userInput > 3) {
+                if (userInput < 0 || userInput > 4) {
                     System.out.println(warning);
                     scanner.nextLine();
                 }
@@ -104,30 +106,75 @@ public class App {
                     for (Map.Entry<String, Integer> entry : map.entrySet()) {
                         System.out.println(entry.getKey() + ": " + entry.getValue() + " ");
                     }
-                    System.out.println("Which food do you want to delete");
-                    String delete = scanner.next();
-                    map.remove(delete);
+                    System.out.println("Which food do you want to manage");
+                    String change = scanner.next();
+                    System.out.println("How much do you want");
+                    int amount = scanner.nextInt();
+                    if(amount != 0){
+                        map.put(change,amount);
+                    } else {
+                        map.remove(change);
+                    }
+                    try {
+                        Files.write(Paths.get(cartfile), Collections.emptyList());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     for (Map.Entry<String, Integer> entry : map.entrySet()) {
                         writeCart(entry.getKey(),entry.getValue(),cartfile);
                     }
+                    break;
+
                 case 3:
                     System.out.println(displayHistory(getHisList(historyfile)));
+                    break;
+
                 case 4:
                     Double price = 0.0;
-                    HashMap<String, Integer> map1 = getCart(cartfile);
-                    List<Food> foodList1= getList(file);
-                    for (Map.Entry<String, Integer> entry : map1.entrySet()) {
-                        for (Food food1 : foodList1) {
-                            if (entry.getKey().equals(food1.getName())) {
-                                price += entry.getValue() * food1.getPrice();
-                            }
+                    HashMap<String, Integer> cartMap = getCart(cartfile);
+                    List<Food> foodList1 = getList(file);
+
+                    HashMap<String, Double> foodPriceMap = new HashMap<>();
+                    for (Food f : foodList1) {
+                        foodPriceMap.put(f.getName(), f.getPrice());
+                    }
+
+                    for (Map.Entry<String, Integer> entry : cartMap.entrySet()) {
+                        Double foodPrice = foodPriceMap.get(entry.getKey());
+                        if (foodPrice != null) {
+                            price += entry.getValue() * foodPrice;
                         }
                     }
                     System.out.println(price);
+                    break;
             }
         }
+    }
 
+    static void adminMenu(){
+        while (true) {
+            String command = "What option do you like? (Enter the number)";
+            String warning = "Please enter a Integer between 1 and 6";
+            String prefix_Admin = "[Admin]: ";
+            System.out.println(command);
+            System.out.println("0: quit");
+            System.out.println("1: display");
+            System.out.println("2: conversion");
+            System.out.println("3: add currency");
+            System.out.println("4: history");
+            System.out.println("5: remove currency");
+            System.out.println("6: update favorite");
+            System.out.printf(prefix_Admin);
 
+            int userInput = -1;
+
+            userInput = scanner.nextInt();
+
+            while (userInput < 0 || userInput > 6) {
+                System.out.println(warning);
+                userInput = scanner.nextInt();
+            }
+        }
     }
 
     public static void main(String[]args) {
