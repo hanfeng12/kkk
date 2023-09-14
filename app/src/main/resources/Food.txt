@@ -1,2 +1,2 @@
-Burger,4.5,delicious
-Chips,3,crispy
+burger,4.5,delicious
+chips,3.0,crispy
