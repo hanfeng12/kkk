@@ -16,7 +16,12 @@ public class App {
     public static String historyfile = "src/main/resources/History.txt";
     private static Scanner scanner = new Scanner(System.in);
 
+    static void reinitializeScanner() {
+        scanner = new Scanner(System.in);
+    }
+
     static String loginMenu() {
+        reinitializeScanner();
         String loginRole = "";
         while (!loginRole.equals("admin") && !loginRole.equals("user")) {
             System.out.println("Who are you? (Enter 1. admin, 2. user)");
@@ -152,6 +157,7 @@ public class App {
     }
 
     static void adminMenu(){
+        reinitializeScanner();
         List<Food> foods = getList(file);
         while (true) {
             String command = "What option do you like? (Enter the number)";

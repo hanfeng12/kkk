@@ -3,6 +3,7 @@
  */
 package lab26.Shubhi.Group04.A1;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.nio.file.Files;
@@ -20,52 +21,60 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AppTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
+    private final InputStream originalIn = System.in;
 
     @BeforeEach
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
-        System.setIn(null);  // Reset the input stream
+    }
+
+    @AfterEach
+    public void restoreStreams() {
+        System.setOut(originalOut);
+        System.setIn(originalIn);
     }
 
     @Test
     public void testLoginMenuAdmin() {
-        String input = "1\n";  // Simulating admin input
+        App.reinitializeScanner();
+        String input = "1\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        String role = App.loginMenu();
+        String role = App.loginMenu();  // Replace with your actual method
         assertTrue(outContent.toString().contains("Who are you? (Enter 1. admin, 2. user)"));
         assertEquals("admin", role);
     }
 
-//    @Test
-//    public void testLoginMenuUser() {
-//        String input = "2\n";  // Simulating user input
-//        System.setIn(new ByteArrayInputStream(input.getBytes()));
-//        String role = App.loginMenu();
-//        assertTrue(outContent.toString().contains("Who are you? (Enter 1. admin, 2. user)"));
-//        assertEquals("user", role);
-//    }
+    @Test
+    public void testLoginMenuUser() {
+        App.reinitializeScanner();
+        String input = "2\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        String role = App.loginMenu();  // Replace with your actual method
+        assertTrue(outContent.toString().contains("Who are you? (Enter 1. admin, 2. user)"));
+        assertEquals("user", role);
+    }
+
+    @Test
+    public void testLoginMenuInvalidThenAdmin() {
+        String input = "3\n1\n";  // Simulating invalid input followed by admin input
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        String role = App.loginMenu();
+        String output = outContent.toString();
+        assertTrue(output.contains("Who are you? (Enter 1. admin, 2. user)"));
+        assertTrue(output.contains("Please enter the correct instruction"));
+        assertEquals("admin", role);
+    }
 //
-//    @Test
-//    public void testLoginMenuInvalidThenAdmin() {
-//        String input = "3\n1\n";  // Simulating invalid input followed by admin input
-//        System.setIn(new ByteArrayInputStream(input.getBytes()));
-//        String role = App.loginMenu();
-//        String output = outContent.toString();
-//        assertTrue(output.contains("Who are you? (Enter 1. admin, 2. user)"));
-//        assertTrue(output.contains("Please enter the correct instruction"));
-//        assertEquals("admin", role);
-//    }
-//
-//    @Test
-//    public void testLoginMenuInvalidThenUser() {
-//        String input = "0\n2\n";  // Simulating invalid input followed by user input
-//        System.setIn(new ByteArrayInputStream(input.getBytes()));
-//        String role = App.loginMenu();
-//        String output = outContent.toString();
-//        assertTrue(output.contains("Who are you? (Enter 1. admin, 2. user)"));
-//        assertTrue(output.contains("Please enter the correct instruction"));
-//        assertEquals("user", role);
-//    }
+    @Test
+    public void testLoginMenuInvalidThenUser() {
+        String input = "0\n2\n";  // Simulating invalid input followed by user input
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        String role = App.loginMenu();
+        String output = outContent.toString();
+        assertTrue(output.contains("Who are you? (Enter 1. admin, 2. user)"));
+        assertTrue(output.contains("Please enter the correct instruction"));
+        assertEquals("user", role);
+    }
 }
 
 
