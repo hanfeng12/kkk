@@ -17,29 +17,32 @@ public class App {
     private static Scanner scanner = new Scanner(System.in);
 
     static String loginMenu() {
-        String loginRole;
-        System.out.println("Who are you? (Enter 1. admin, 2. user)");
-
-        switch (scanner.nextInt()) {
-            case 1:
-                loginRole = "admin";
-                break;
-            case 2:
-                loginRole = "user";
-                break;
-            default:
-                System.out.println("Please enter the correct instruction");
-                loginRole = loginMenu();
+        String loginRole = "";
+        while (!loginRole.equals("admin") && !loginRole.equals("user")) {
+            System.out.println("Who are you? (Enter 1. admin, 2. user)");
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    loginRole = "admin";
+                    break;
+                case 2:
+                    loginRole = "user";
+                    break;
+                default:
+                    System.out.println("Please enter the correct instruction");
+                    break;
+            }
         }
         return loginRole;
     }
+
 
     static void userMenu() {
 
         while (true) {
             String command = "What option do you like? (Enter the number)";
             String warning = "Please enter a Integer between 0 and 4";
-            String prefix_User = "[User]: ";
+            String prefix_User = "[User]: \n";
             System.out.println(command);
             System.out.println("0: quit");
             System.out.println("1: order");
@@ -84,7 +87,7 @@ public class App {
                         System.out.println("We do not have this food, sorry. ");
                     } else {
                         Date date = new Date();
-                        System.out.print("How many food do you want? ");
+                        System.out.print("How many food do you want? \n");
                         int amount = scanner.nextInt();
                         writeCart(food,amount,cartfile);
                         writeHistory(date,food,amount,historyfile);

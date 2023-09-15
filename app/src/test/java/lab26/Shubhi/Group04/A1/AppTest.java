@@ -3,9 +3,70 @@
  */
 package lab26.Shubhi.Group04.A1;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import java.io.*;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AppTest {
-
+//    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+//    private final PrintStream originalOut = System.out;
+//
+//    @BeforeEach
+//    public void setUpStreams() {
+//        System.setOut(new PrintStream(outContent));
+//        System.setIn(null);  // Reset the input stream
+//    }
+//
+//    @Test
+//    public void testLoginMenuAdmin() {
+//        String input = "1\n";  // Simulating admin input
+//        System.setIn(new ByteArrayInputStream(input.getBytes()));
+//        String role = App.loginMenu();
+//        assertTrue(outContent.toString().contains("Who are you? (Enter 1. admin, 2. user)"));
+//        assertEquals("admin", role);
+//    }
+//
+//    @Test
+//    public void testLoginMenuUser() {
+//        String input = "2\n";  // Simulating user input
+//        System.setIn(new ByteArrayInputStream(input.getBytes()));
+//        String role = App.loginMenu();
+//        assertTrue(outContent.toString().contains("Who are you? (Enter 1. admin, 2. user)"));
+//        assertEquals("user", role);
+//    }
+//
+//    @Test
+//    public void testLoginMenuInvalidThenAdmin() {
+//        String input = "3\n1\n";  // Simulating invalid input followed by admin input
+//        System.setIn(new ByteArrayInputStream(input.getBytes()));
+//        String role = App.loginMenu();
+//        String output = outContent.toString();
+//        assertTrue(output.contains("Who are you? (Enter 1. admin, 2. user)"));
+//        assertTrue(output.contains("Please enter the correct instruction"));
+//        assertEquals("admin", role);
+//    }
+//
+//    @Test
+//    public void testLoginMenuInvalidThenUser() {
+//        String input = "0\n2\n";  // Simulating invalid input followed by user input
+//        System.setIn(new ByteArrayInputStream(input.getBytes()));
+//        String role = App.loginMenu();
+//        String output = outContent.toString();
+//        assertTrue(output.contains("Who are you? (Enter 1. admin, 2. user)"));
+//        assertTrue(output.contains("Please enter the correct instruction"));
+//        assertEquals("user", role);
+//    }
 }
+
+
+

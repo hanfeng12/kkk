@@ -7,6 +7,15 @@ public class History {
     private String name;
     private Integer amount;
 
+    public History(){
+
+    }
+
+    public History(Date date, String name, Integer amount) {
+        this.date = date;
+        this.name = name;
+        this.amount = amount;
+    }
 
 
     @Override
