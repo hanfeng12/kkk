@@ -75,6 +75,79 @@ public class AppTest {
         assertTrue(output.contains("Please enter the correct instruction"));
         assertEquals("user", role);
     }
+
+    @Test
+    public void testAdminMenuQuit() {
+        String input = "0\n";  // Simulating quit option
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        App.adminMenu();
+        String output = outContent.toString();
+        assertTrue(output.contains("[Admin]: "));
+        assertTrue(output.contains("What option do you like? (Enter the number)"));
+    }
+
+
+    @Test
+    public void testAdminMenuAddFood() {
+        // Simulating add food option followed by food name, price, and description
+        String input = "5\nnewFood\n10.0\ndescription\n0\n";  // Added "0\n" to simulate quitting after adding food
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        App.adminMenu();
+        String output = outContent.toString();
+        assertTrue(output.contains("Please enter the food name:"));
+        assertTrue(output.contains("Please enter food price:"));
+        assertTrue(output.contains("Please enter food description:"));
+    }
+
+    @Test
+    public void testAdminMenuRemoveFood() {
+        // Simulating remove food option followed by food name and then quitting
+        String input = "7\nfoodToRemove\n0\n";  // "7\n" for remove food option, followed by food name to remove, and "0\n" to simulate quitting
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        App.adminMenu();
+        String output = outContent.toString();
+        assertTrue(output.contains("Please enter food:"));
+    }
+
+
+    @Test
+    public void testAdminMenuViewCart() {
+        // Simulating view cart option, managing a food, and then quitting
+        String input = "2\nfoodName\n5\n0\n";  // "2\n" for view cart option, "foodName\n" for the food to manage, "5\n" for the new amount, and "0\n" to simulate quitting
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        App.adminMenu();
+        String output = outContent.toString();
+        assertTrue(output.contains("Which food do you want to manage"));
+    }
+
+
+    @Test
+    public void testAdminMenuViewHistory() {
+        // Simulating view history option and then quitting
+        String input = "3\n0\n";  // "3\n" for view history option and "0\n" to simulate quitting
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        App.adminMenu();
+        String output = outContent.toString();
+        assertFalse(output.contains("Good morning"));
+    }
+
+    @Test
+    public void testAdminMenuCheckout() {
+        // Simulating checkout option and then quitting
+        String input = "4\n0\n";  // "4\n" for checkout option and "0\n" to simulate quitting
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        App.adminMenu();
+        String output = outContent.toString();
+        assertFalse(output.contains("Good evening"));
+    }
+
+
+
+
+
+
+
+
 }
 
 

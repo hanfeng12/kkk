@@ -1,4 +1,0 @@
-burger,1
-chips,5
-
-burger,1
