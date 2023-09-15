@@ -18,24 +18,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AppTest {
-//    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-//    private final PrintStream originalOut = System.out;
-//
-//    @BeforeEach
-//    public void setUpStreams() {
-//        System.setOut(new PrintStream(outContent));
-//        System.setIn(null);  // Reset the input stream
-//    }
-//
-//    @Test
-//    public void testLoginMenuAdmin() {
-//        String input = "1\n";  // Simulating admin input
-//        System.setIn(new ByteArrayInputStream(input.getBytes()));
-//        String role = App.loginMenu();
-//        assertTrue(outContent.toString().contains("Who are you? (Enter 1. admin, 2. user)"));
-//        assertEquals("admin", role);
-//    }
-//
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @BeforeEach
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+        System.setIn(null);  // Reset the input stream
+    }
+
+    @Test
+    public void testLoginMenuAdmin() {
+        String input = "1\n";  // Simulating admin input
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        String role = App.loginMenu();
+        assertTrue(outContent.toString().contains("Who are you? (Enter 1. admin, 2. user)"));
+        assertEquals("admin", role);
+    }
+
 //    @Test
 //    public void testLoginMenuUser() {
 //        String input = "2\n";  // Simulating user input
