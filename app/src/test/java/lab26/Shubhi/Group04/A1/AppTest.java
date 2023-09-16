@@ -7,10 +7,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -139,6 +137,42 @@ public class AppTest {
         App.adminMenu();
         String output = outContent.toString();
         assertFalse(output.contains("Good evening"));
+    }
+    @Test
+    public void testUserMenuQuit() {
+        String input = "0\n";  // Simulating quit option
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        App.userMenu();
+        String output = outContent.toString();
+        assertTrue(output.contains("[User]: "));
+        assertTrue(output.contains("What option do you like? (Enter the number)"));
+    }
+
+    @Test
+    public void testUserMenuOrder() {
+        String input = "1\nfoodName\n5\n0\n";  // Simulating order option, followed by food name, amount, and then quitting
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        App.userMenu();
+        String output = outContent.toString();
+        assertFalse(output.contains("Hi"));
+    }
+
+    @Test
+    public void testUserMenuViewCart() {
+        String input = "2\nfoodName\n5\n0\n";  // Simulating view cart option, managing a food, and then quitting
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        App.userMenu();
+        String output = outContent.toString();
+        assertTrue(output.contains("Which food do you want to manage"));
+    }
+
+    @Test
+    public void testUserMenuViewHistory() {
+        String input = "3\n0\n";  // Simulating view history option and then quitting
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        App.userMenu();
+        String output = outContent.toString();
+        assertFalse(output.contains("What else can I do for you?"));
     }
 
 

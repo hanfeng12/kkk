@@ -43,7 +43,7 @@ public class App {
 
 
     static void userMenu() {
-
+        reinitializeScanner();
         while (true) {
             String command = "What option do you like? (Enter the number)";
             String warning = "Please enter a Integer between 0 and 4";
@@ -330,4 +330,3 @@ public class App {
 
 }
 
-//ts
