@@ -175,6 +175,15 @@ public class AppTest {
         assertFalse(output.contains("What else can I do for you?"));
     }
 
+    @Test
+    public void testUserMenuCheckout() {
+        String input = "4\n0\n";  // Simulating checkout option and then quitting
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        App.userMenu();
+        String output = outContent.toString();
+        assertFalse(output.contains("What else can I do for you?"));
+    }
+
 
 
 
