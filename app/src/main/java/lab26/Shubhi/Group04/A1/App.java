@@ -176,39 +176,40 @@ public class App {
 
     static void adminMenu(){
         reinitializeScanner();
+        Map<String, String> credentials = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/admin.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 2) {
+                    String username = parts[0];
+                    String password = parts[1];
+                    credentials.put(username, password);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<Food> foods = getList(file);
+        System.out.println("Please enter your username");
+        String inputUsername = scanner.next();
+        if (credentials.containsKey(inputUsername)) {
+            System.out.println("Please enter your password");
+            String inputPassword = scanner.next();
+            if (credentials.containsValue(inputPassword)) {
+                System.out.println("Welcome");
+            } else {
+                System.out.println("Invalid password");
+                return;
+            }
+        }else {
+            System.out.println("Invalid username");
+            return;
+        }
 
 
         while (true) {
-            Map<String, String> credentials = new HashMap<>();
-            try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/admin.txt"))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] parts = line.split(",");
-                    if (parts.length >= 2) {
-                        String username = parts[0];
-                        String password = parts[1];
-                        credentials.put(username, password);
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            List<Food> foods = getList(file);
-            System.out.println("Please enter your username");
-            String inputUsername = scanner.next();
-            if (credentials.containsKey(inputUsername)) {
-                System.out.println("Please enter your password");
-                String inputPassword = scanner.next();
-                if (credentials.containsValue(inputPassword)) {
-                    System.out.println("Welcome");
-                } else {
-                    System.out.println("Invalid password");
-                    break;
-                }
-            }else {
-                System.out.println("Invalid username");
-                break;
-            }
+
             String command = "What option do you like? (Enter the number)";
             String warning = "Please enter a Integer between 1 and 6";
             String prefix_Admin = "[Admin]: ";
