@@ -29,18 +29,6 @@ public class HistoryTest {
                 ", date=" + ts_history.getDate() +
                 '}', ts_history.toString());
     }
-    @Test
-    void testtestToString() {
-        History ts_history = new History();
-        ts_history.setName("Phi");
-        ts_history.setAmount(5);
-        Date testDate = new Date();
-        ts_history.setDate(testDate);
-        assertEquals("Food{" +
-                "name='" + ts_history.getName() + '\'' +
-                ", amount=" + ts_history.getAmount() +
-                ", date=" + ts_history.getDate() +
-                '}', ts_history.toString());
-    }
+
 }
 
