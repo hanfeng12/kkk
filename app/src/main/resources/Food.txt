@@ -1,2 +1,8 @@
 burger,3.0,delicious
 chips,2.0,crispy
+pizza,20.0,Hot
+pizza,20.0,Hot
+pizza,20.0,Hot
+pizza,20.0,Hot
+pizza,20.0,Hot
+foodname,5.0,0
