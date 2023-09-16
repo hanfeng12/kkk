@@ -166,6 +166,7 @@ public class AppTest {
         assertFalse(output.contains("What else can I do for you?"));
     }
 
+
     @Test
     public void testUserMenuCheckout() {
         String input = "4\n0\n";
@@ -175,9 +176,7 @@ public class AppTest {
         assertFalse(output.contains("What else can I do for you?"));
     }
 
-
-
-
+    
 }
 
 
