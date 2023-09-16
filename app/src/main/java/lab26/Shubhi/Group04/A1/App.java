@@ -151,15 +151,64 @@ public class App {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    break;
+                    if(price == 0.0){
+                        System.out.println("There are no food in your cart");
+                        break;
+                    }
+                    System.out.println("Do you want to delivery or pickup?");
+                    String choice = scanner.next();
+                    if (!choice.equals("delivery") & !choice.equals("pickup")){
+                        System.out.println("We do not have other choice");
+                        break;
+                    }
+                    System.out.println("Confirm your order.(y/n)");
+                    String confirm = scanner.next();
+                    if(confirm.equals("y")){
+                        System.out.println("Thanks for order the food");
+                        return;
+                    }else {
+                        break;
+                    }
+
             }
         }
     }
 
     static void adminMenu(){
         reinitializeScanner();
-        List<Food> foods = getList(file);
+
+
         while (true) {
+            Map<String, String> credentials = new HashMap<>();
+            try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/admin.txt"))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] parts = line.split(",");
+                    if (parts.length >= 2) {
+                        String username = parts[0];
+                        String password = parts[1];
+                        credentials.put(username, password);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            List<Food> foods = getList(file);
+            System.out.println("Please enter your username");
+            String inputUsername = scanner.next();
+            if (credentials.containsKey(inputUsername)) {
+                System.out.println("Please enter your password");
+                String inputPassword = scanner.next();
+                if (credentials.containsValue(inputPassword)) {
+                    System.out.println("Welcome");
+                } else {
+                    System.out.println("Invalid password");
+                    break;
+                }
+            }else {
+                System.out.println("Invalid username");
+                break;
+            }
             String command = "What option do you like? (Enter the number)";
             String warning = "Please enter a Integer between 1 and 6";
             String prefix_Admin = "[Admin]: ";
@@ -260,7 +309,24 @@ public class App {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    break;
+                    if(price == 0.0){
+                        System.out.println("There are no food in your cart");
+                        break;
+                    }
+                    System.out.println("Do you want to delivery or pickup?");
+                    String choice = scanner.next();
+                    if (!choice.equals("delivery") & !choice.equals("pickup")){
+                        System.out.println("We do not have other choice");
+                        break;
+                    }
+                    System.out.println("Confirm your order.(y/n)");
+                    String confirm = scanner.next();
+                    if(confirm.equals("y")){
+                        System.out.println("Thanks for order the food");
+                        return;
+                    }else {
+                        break;
+                    }
                 case 5:
                     Food newFood = new Food();
                     System.out.print("Please enter the food name: ");
